@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/logo.png" />
+    <title>Intro Sectrion by DevPetrate</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      :root {
+        --White: hsl(0, 0%, 98%);
+        --Gray: hsl(0, 0%, 41%);
+        --Black: hsl(0, 0%, 8%);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Epilogue", sans-serif;
+        background-color: var(--White);
+      }
+      .container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 0 24px;
+      }
+      header {
+        height: 6rem;
+        display: flex;
+        background-color: red;
+        align-items: center;
+      }
+      .headerright {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        color: var(--Gray);
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        align-content: center;
+      }
+      nav ul li:hover .img1 {
+        display: none;
+      }
+      nav ul li:hover .img2 {
+        display: inline;
+      }
+      li img:nth-child(2) {
+        display: none;
+      }
+      .dropdown {
+        display: none;
+      }
+      button {
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        background-color: transparent;
+        border: 2px solid var(--Gray);
+        cursor: pointer;
+        color: var(--Gray);
+      }
+      button:first-child {
+        border: none;
+      }
+      button:hover {
+        color: var(--Black);
+        border-color: var(--Black);
+      }
+      .maincontainer {
+        flex: 1;
+        display: flex;
+        background-color: blanchedalmond;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6rem;
+        gap: 6rem;
+      }
+      .main1 {
+      }
+      .main2 {
+      }
+      .main2 img {
+        width: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="./images/logo.svg" alt="" width="100px" height="40px" />
+        <div class="headerright">
+          <nav>
+            <ul>
+              <li>
+                Features
+                <img class="img1" src="./images/icon-arrow-down.svg" alt="" />
+                <img class="img2" src="./images/icon-arrow-up.svg" alt="" />
+                <ul class="dropdown">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>
+                Company
+                <img class="img1" src="./images/icon-arrow-down.svg" alt="" />
+                <img class="img2" src="./images/icon-arrow-up.svg" alt="" />
+                <ul class="dropdown">
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </li>
+              <li>Careers</li>
+              <li>About</li>
+            </ul>
+          </nav>
+          <div class="btn">
+            <button>Login</button>
+            <button>Register</button>
+          </div>
+        </div>
+      </header>
+      <div class="maincontainer">
+        <div class="main1">
+          <h1>Make remote work</h1>
+          <p>
+            Get your team in sync, no matter your location. Streamline processes, create team
+            rituals, and watch productivity soar.
+          </p>
+          <button>Learn More</button>
+          <div class="imagecontainer">
+            <img src="./images/client-databiz.svg" alt="" />
+            <img src="./images/client-audiophile.svg" alt="" />
+            <img src="./images/client-meet.svg" alt="" />
+            <img src="./images/client-maker.svg" alt="" />
+          </div>
+        </div>
+        <div class="main2">
+          <img src="./images/image-hero-desktop.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
