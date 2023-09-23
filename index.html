@@ -33,14 +33,26 @@
         padding: 0 24px;
         gap: 2rem;
       }
-      header {
+      header,
+      .headercontainer {
         height: 6rem;
         display: flex;
-        background-color: rgb(234, 180, 180);
+        background-color: var(--White);
         align-items: center;
       }
-      header > img {
+
+      header > img:first-child {
         margin-right: 3rem;
+      }
+      header > img:nth-child(2),
+      nav > img:first-child {
+        display: none;
+      }
+      .sidebar {
+        display: flex;
+        justify-content: space-between;
+        width: max-content;
+        flex: 1;
       }
       .headerright {
         flex: 1;
@@ -52,6 +64,7 @@
         display: flex;
         align-items: center;
       }
+
       nav ul {
         display: flex;
         list-style: none;
@@ -80,7 +93,7 @@
         display: none;
       }
       .dropdown {
-        display: flex;
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
@@ -125,7 +138,7 @@
       .maincontainer {
         height: 80vh;
         display: flex;
-        background-color: blanchedalmond;
+        background-color: var(--White);
         align-items: center;
         justify-content: space-between;
         padding: 0 6rem;
@@ -158,7 +171,7 @@
         margin: 0 2rem 0 0;
       }
       .main2 {
-        max-width: 50%;
+        max-width: 100%;
       }
       .main2 img {
         width: 400px;
@@ -169,12 +182,86 @@
           gap: 0;
         }
         header {
+          flex: 1;
           height: 5rem;
           padding: 0 24px;
+          justify-content: space-between;
+        }
+        header > img:nth-child(2),
+        nav > img:first-child {
+          display: inline;
         }
         .headerright {
           display: none;
         }
+        .sidebar {
+          position: fixed;
+          top: 0;
+          right: -65%;
+          width: 65%;
+          height: 100%;
+          background-color: var(--White);
+          transition: right 0.3s ease-in-out;
+          z-index: 2;
+          justify-content: start;
+          flex-direction: column;
+          gap: 2rem;
+          padding: 24px;
+        }
+
+        .sidebar.open {
+          right: 0;
+        }
+        .dropdown {
+          display: none;
+          position: relative;
+          top: 0;
+          left: 0;
+          background: transparent;
+          border: none;
+          z-index: 0;
+          flex-direction: column;
+          padding: 1.5rem 0 1.5rem 1.5rem;
+          border-radius: 10px;
+          box-shadow: none;
+          color: var(--Gray);
+          font-weight: 500;
+          margin-top: 0.5rem;
+        }
+        nav {
+          flex-direction: column;
+          gap: 2rem;
+        }
+        .close-button {
+          align-self: flex-end;
+        }
+        nav ul {
+          flex-direction: column;
+          align-self: flex-start;
+        }
+        nav ul li {
+          color: var(--Gray);
+          margin-bottom: 0.5rem;
+        }
+        nav ul li img {
+          margin-left: 1rem;
+        }
+        .btn {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+          display: none;
+        }
+
         .maincontainer {
           flex-direction: column-reverse;
           justify-content: start;
@@ -209,28 +296,25 @@
           padding: 0;
           margin: 0 0.5rem;
         }
-
-        .maincontainer {
-          height: 150vh;
-        }
-        .container {
-          height: 150vh;
-        }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <header>
-        <img src="./images/logo.svg" alt="" width="100px" height="30px" />
-        <div class="headerright">
+      <div class="headercontainer">
+        <header>
+          <img src="./images/logo.svg" alt="" width="100px" height="30px" />
+          <img id="menu-button" src="./images/icon-menu.svg" alt="" />
+        </header>
+        <div class="sidebar">
           <nav>
+            <img class="close-button" src="./images/icon-close-menu.svg" alt="" />
             <ul>
-              <li>
+              <li id="featureli">
                 Features
                 <img class="img1" src="./images/icon-arrow-down.svg" alt="" />
                 <img class="img2" src="./images/icon-arrow-up.svg" alt="" />
-                <ul class="dropdown">
+                <ul class="dropdown" id="featuredropdown">
                   <div class="listt">
                     <img src="./images/icon-todo.svg" alt="" width="20px" />
                     <li>Todo List</li>
@@ -249,11 +333,11 @@
                   </div>
                 </ul>
               </li>
-              <li>
+              <li id="companyli">
                 Company
                 <img class="img1" src="./images/icon-arrow-down.svg" alt="" />
                 <img class="img2" src="./images/icon-arrow-up.svg" alt="" />
-                <ul class="dropdown">
+                <ul class="dropdown" id="featuredropdown">
                   <li>History</li>
                   <li>Our Team</li>
                   <li>Blog</li>
@@ -268,7 +352,8 @@
             <button>Register</button>
           </div>
         </div>
-      </header>
+      </div>
+
       <div class="maincontainer">
         <div class="main1">
           <h1>Make remote work</h1>
@@ -289,5 +374,32 @@
         </div>
       </div>
     </div>
+    <div class="overlay"></div>
+    <script>
+      const featurebar = document.querySelector("#featureli");
+      const companybar = document.querySelector("#companyli");
+      const featureDropdown = document.querySelector("#featuredropdown");
+      const companyDropdown = document.querySelector("#companydropdown");
+
+      const sidebar = document.querySelector(".sidebar");
+      const closeButton = document.querySelector(".close-button");
+      const menuButton = document.querySelector("#menu-button");
+      const overlay = document.querySelector(".overlay");
+
+      function openSidebar() {
+        sidebar.classList.add("open");
+        overlay.style.display = "block";
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove("open");
+        overlay.style.display = "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        closeButton.addEventListener("click", closeSidebar);
+        menuButton.addEventListener("click", openSidebar);
+      });
+    </script>
   </body>
 </html>
